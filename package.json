@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "node-sass": "^7.0.1"
+  },
+  "name": "09-05-2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "sass": "node-sass assets/scss/style.scss -o assets/css -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
