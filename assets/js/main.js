@@ -21,6 +21,10 @@ var playerName = ''
 const scoreBoard = document.querySelector('.tetris__score__live span')
 startBtn.addEventListener('click', function () {
   playerName = prompt('enter your Name')
+  if (playerName == '') {
+    alert('inputu doldur həryerdə bug axtarma')
+    return
+  }
   screen.innerHTML = ''
   if (startBtn.classList.contains('active')) {
     startBtn.classList.remove('active')
