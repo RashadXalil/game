@@ -25,6 +25,7 @@ let players = []
 var playerName = ''
 const scoreBoard = document.querySelector('.tetris__score__live span')
 mode.addEventListener('change', function (e) {
+  clearInterval(playTime)
   if (e.target.value == 'normal') {
     time = 1000
     document.getElementById('body').classList.remove('godmode')
@@ -78,6 +79,16 @@ mode.addEventListener('change', function (e) {
       }, 1000)
     }, time)
   } else if (e.target.value == 'hard') {
+    if (playerName == '') {
+      playerName = prompt('enter your Name')
+      if (playerName == '') {
+        alert('inputu doldur həryerdə bug axtarma')
+        return
+      }
+    }
+    startBtn.classList.remove('active')
+    stopBtn.classList.add('active')
+    score = 0
     time = 500
     kayu.pause()
     document.getElementById('body').classList.remove('godmode')
@@ -128,13 +139,23 @@ mode.addEventListener('change', function (e) {
       })
       setTimeout(() => {
         bubble.style.display = 'none'
-      }, 400)
+      }, 700)
     }, time)
   } else {
+    if (playerName == '') {
+      playerName = prompt('enter your Name')
+      if (playerName == '') {
+        alert('inputu doldur həryerdə bug axtarma')
+        return
+      }
+    }
     let firstPrompt = confirm('are u sure?')
     if (firstPrompt) {
       let secondPrompt = confirm('olum baak')
       if (secondPrompt) {
+        startBtn.classList.remove('active')
+        stopBtn.classList.add('active')
+        score = 0
         time = 100
         kayu.pause()
         hard.pause()
@@ -277,11 +298,16 @@ startBtn.addEventListener('click', function () {
   }
 })
 stopBtn.addEventListener('click', function () {
+  score = 0
+  scoreBoard.innerHTML = ''
   if (stopBtn.classList.contains('active')) {
     stopBtn.classList.remove('active')
     startBtn.classList.add('active')
   }
   clearInterval(playTime)
+  kayu.pause()
+  hard.pause()
+  godmode.pause()
   let player = new Player(playerName, score)
   players.push(player)
   screen.innerHTML =
