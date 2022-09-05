@@ -78,6 +78,9 @@ startBtn.addEventListener('click', function () {
         return
       }
     })
+    setTimeout(() => {
+      bubble.style.display = 'none'
+    }, 1000)
   }, time)
 })
 stopBtn.addEventListener('click', function () {
