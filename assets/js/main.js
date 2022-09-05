@@ -3,6 +3,8 @@ const startBtn = document.getElementById('startBtn')
 const stopBtn = document.getElementById('stopBtn')
 const mode = document.getElementById('mode')
 const tbody = document.getElementById('tbody')
+const modal = document.getElementById('modal')
+const video = document.getElementById('modal-video')
 var godmode = new Audio('/assets/sound/godmode.mp3')
 var kayu = new Audio('/assets/sound/cayu.mp3')
 var hard = new Audio('/assets/sound/hard.mp3')
@@ -34,12 +36,14 @@ startBtn.addEventListener('click', function () {
     stopBtn.classList.add('active')
   }
   let currentMode = mode.value
-  if ((currentMode = 'normal')) {
+  if (currentMode == 'normal') {
     time = 500
+    console.log('normal mode')
     hard.pause()
     godmode.pause()
     kayu.play()
-  } else if ((currentMode = 'hard')) {
+  } else if (currentMode == 'hard') {
+    console.log('hardmode')
     kayu.pause()
     godmode.pause()
     hard.play()
@@ -47,8 +51,9 @@ startBtn.addEventListener('click', function () {
   } else {
     kayu.pause()
     hard.pause()
+    console.log('godmode')
     godmode.play()
-    time = 100
+    time = 10
   }
   playTime = setInterval(() => {
     let bubble = document.createElement('div')
@@ -62,7 +67,6 @@ startBtn.addEventListener('click', function () {
     bubble.style.top = `${Math.floor(Math.random() * 150)}px`
     screen.append(bubble)
     bubble.addEventListener('click', function (e) {
-      console.log(mode.value)
       if (mode.value == 'normal') {
         score += 1
       } else if (mode.value == 'hard') {
@@ -72,7 +76,7 @@ startBtn.addEventListener('click', function () {
       }
       e.target.style.display = 'none'
       scoreBoard.innerHTML = score
-      if (score >= 50) {
+      if (score >= 100) {
         alert('game over !')
         clearInterval(playTime)
         screen.innerHTML =
@@ -87,6 +91,10 @@ startBtn.addEventListener('click', function () {
         scoreBoard.innerHTML = '0'
         startBtn.classList.add('active')
         stopBtn.classList.remove('active')
+        kayu.pause()
+        hard.pause()
+        godmode.pause()
+        console.log(time)
         return
       }
     })
@@ -124,19 +132,37 @@ function tableCreate(array) {
 mode.addEventListener('change', function (e) {
   if (e.target.value == 'normal') {
     time = 700
+    document.getElementById('body').classList.remove('godmode')
     hard.pause()
+    godmode.pause()
     kayu.play()
   } else if (e.target.value == 'hard') {
     kayu.pause()
+    document.getElementById('body').classList.remove('godmode')
     godmode.pause()
     hard.loop = true
     hard.play()
     time = 400
   } else {
-    time = 100
-    kayu.pause()
-    hard.pause()
-    godmode.loop = false
-    godmode.play()
+    let firstPrompt = confirm('are u sure?')
+    if (firstPrompt) {
+      let secondPrompt = confirm('olum baak')
+      if (secondPrompt) {
+        kayu.pause()
+        hard.pause()
+        document.getElementsByTagName('body')[0].style.background =
+          'https://c.tenor.com/vxFNoJHV3I4AAAAC/chiquichico.gif'
+        godmode.loop = false
+        godmode.play()
+        document.getElementById('body').classList.add('godmode')
+        modal.style.display = 'block'
+        video.autoplay = true
+        let modalFadeIn = setTimeout(() => {
+          modal.style.display = 'none'
+        }, 3000)
+      }
+    }
+    console.log('godmode')
+    time = 10
   }
 })

@@ -4,9 +4,34 @@
   box-sizing: border-box;
 }
 body {
+  transition: 0.3s linear;
   background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/35158b15-0693-4e62-9057-bed12151fca8/dbgmv27-e0f1802b-4d5b-4c2f-88a4-0633db649cc3.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzM1MTU4YjE1LTA2OTMtNGU2Mi05MDU3LWJlZDEyMTUxZmNhOFwvZGJnbXYyNy1lMGYxODAyYi00ZDViLTRjMmYtODhhNC0wNjMzZGI2NDljYzMuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.vweN-YYWdEcVpuOY5qniDdgtUhDDwWy6rpqpTf2tWY4);
 }
+.godmode {
+  background-image: url("https://c.tenor.com/vxFNoJHV3I4AAAAC/chiquichico.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  .tetris {
+    color: white;
+    background-color: darkred;
+    .screen {
+      background-color: black;
+    }
+    button {
+      background-color: #f76806;
+    }
+    select {
+      background-color: #f76806;
+    }
+    table {
+      color: white;
+      background-color: #f76806;
+    }
+  }
+}
 .tetris {
+  transition: 0.3s linear;
   width: 500px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -142,4 +167,17 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: solid;
+  display: none;
+  width: 800px;
+  height: 450px;
+  transform: translate(-50%, -50%);
+  video {
+    width: 100%;
+  }
 }
