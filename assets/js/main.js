@@ -213,7 +213,7 @@ mode.addEventListener('change', function (e) {
           })
           setTimeout(() => {
             bubble.style.display = 'none'
-          }, 300)
+          }, 200)
         }, time)
       }
     }
