@@ -3,6 +3,9 @@ const startBtn = document.getElementById('startBtn')
 const stopBtn = document.getElementById('stopBtn')
 const mode = document.getElementById('mode')
 const tbody = document.getElementById('tbody')
+var godmode = new Audio('/assets/sound/godmode.mp3')
+var kayu = new Audio('/assets/sound/cayu.mp3')
+var hard = new Audio('/assets/sound/hard.mp3')
 var time = 0
 var score = 0
 var playTime
@@ -33,9 +36,18 @@ startBtn.addEventListener('click', function () {
   let currentMode = mode.value
   if ((currentMode = 'normal')) {
     time = 500
+    hard.pause()
+    godmode.pause()
+    kayu.play()
   } else if ((currentMode = 'hard')) {
+    kayu.pause()
+    godmode.pause()
+    hard.play()
     time = 300
   } else {
+    kayu.pause()
+    hard.pause()
+    godmode.play()
     time = 100
   }
   playTime = setInterval(() => {
@@ -112,9 +124,19 @@ function tableCreate(array) {
 mode.addEventListener('change', function (e) {
   if (e.target.value == 'normal') {
     time = 700
+    hard.pause()
+    kayu.play()
   } else if (e.target.value == 'hard') {
+    kayu.pause()
+    godmode.pause()
+    hard.loop = true
+    hard.play()
     time = 400
   } else {
     time = 100
+    kayu.pause()
+    hard.pause()
+    godmode.loop = false
+    godmode.play()
   }
 })
