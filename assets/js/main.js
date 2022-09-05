@@ -21,28 +21,29 @@ var playerName = ''
 const scoreBoard = document.querySelector('.tetris__score__live span')
 startBtn.addEventListener('click', function () {
   playerName = prompt('enter your Name')
+  screen.innerHTML = ''
   if (startBtn.classList.contains('active')) {
     startBtn.classList.remove('active')
     stopBtn.classList.add('active')
   }
   let currentMode = mode.value
   if ((currentMode = 'normal')) {
-    time = 900
-  } else if ((currentMode = 'hard')) {
-    time = 700
-  } else {
     time = 500
+  } else if ((currentMode = 'hard')) {
+    time = 300
+  } else {
+    time = 100
   }
   playTime = setInterval(() => {
     let bubble = document.createElement('div')
     bubble.classList.add('tetris__screen__item')
-    bubble.style.left = `${Math.floor(Math.random() * 100)}px`
-    bubble.style.right = `${Math.floor(Math.random() * 100)}px`
-    bubble.style.bottom = `${Math.floor(Math.random() * 100)}px`
+    bubble.style.left = `${Math.floor(Math.random() * 200)}px`
+    bubble.style.right = `${Math.floor(Math.random() * 200)}px`
+    bubble.style.bottom = `${Math.floor(Math.random() * 150)}px`
     bubble.style.background = `#${Math.floor(Math.random() * 16777215).toString(
       16,
     )}`
-    bubble.style.top = `${Math.floor(Math.random() * 100)}px`
+    bubble.style.top = `${Math.floor(Math.random() * 150)}px`
     screen.append(bubble)
     bubble.addEventListener('click', function (e) {
       console.log(mode.value)
@@ -55,6 +56,23 @@ startBtn.addEventListener('click', function () {
       }
       e.target.style.display = 'none'
       scoreBoard.innerHTML = score
+      if (score >= 50) {
+        alert('game over !')
+        clearInterval(playTime)
+        screen.innerHTML =
+          '<img style="width:100%" src="https://cdn.dribbble.com/users/129778/screenshots/905019/atari-game-over.jpg"/>'
+        let player = new Player(playerName, score)
+        players.push(player)
+        localStorage.setItem('players', JSON.stringify(players))
+        let array = localStorage.getItem('players')
+        arrayJSON = JSON.parse(array)
+        tableCreate(arrayJSON)
+        score = 0
+        scoreBoard.innerHTML = '0'
+        startBtn.classList.add('active')
+        stopBtn.classList.remove('active')
+        return
+      }
     })
   }, time)
 })
@@ -66,11 +84,11 @@ stopBtn.addEventListener('click', function () {
   clearInterval(playTime)
   let player = new Player(playerName, score)
   players.push(player)
-  screen.innerHTML = ''
+  screen.innerHTML =
+    '<img style="width:100%" src="https://cdn.dribbble.com/users/129778/screenshots/905019/atari-game-over.jpg"/>'
   localStorage.setItem('players', JSON.stringify(players))
   let array = localStorage.getItem('players')
   arrayJSON = JSON.parse(array)
-  console.log(arrayJSON)
   tableCreate(arrayJSON)
 })
 function tableCreate(array) {
@@ -84,3 +102,12 @@ function tableCreate(array) {
   }
   tbody.innerHTML = innerHTML
 }
+mode.addEventListener('change', function (e) {
+  if (e.target.value == 'normal') {
+    time = 700
+  } else if (e.target.value == 'hard') {
+    time = 400
+  } else {
+    time = 100
+  }
+})
