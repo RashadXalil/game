@@ -298,7 +298,6 @@ startBtn.addEventListener('click', function () {
   }
 })
 stopBtn.addEventListener('click', function () {
-  score = 0
   scoreBoard.innerHTML = ''
   if (stopBtn.classList.contains('active')) {
     stopBtn.classList.remove('active')
